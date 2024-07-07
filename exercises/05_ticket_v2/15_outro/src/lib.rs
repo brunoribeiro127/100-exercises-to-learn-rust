@@ -1,4 +1,3 @@
-// TODO: you have something to do in each of the modules in this crate!
 mod description;
 mod status;
 mod title;
@@ -25,4 +24,18 @@ pub struct Ticket {
     pub title: TicketTitle,
     pub description: TicketDescription,
     pub status: Status,
+}
+
+#[derive(Debug, thiserror::Error)]
+pub enum TicketError {
+    #[error("The title cannot be empty")]
+    TitleCannotBeEmpty,
+    #[error("The title cannot be longer than 50 bytes")]
+    TitleTooLong,
+    #[error("The description cannot be empty")]
+    DescriptionCannotBeEmpty,
+    #[error("The description cannot be longer than 500 bytes")]
+    DescriptionTooLong,
+    #[error("`{0}` is not a valid status. Use one of: ToDo, InProgress, Done")]
+    InvalidStatus(String)
 }
